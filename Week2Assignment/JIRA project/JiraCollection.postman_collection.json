@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "5fdcef1c-fc47-4b4b-906a-83f4afad527b",
+		"name": "JiraCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23889513"
+	},
+	"item": [
+		{
+			"name": "AllRequestList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{table}}/search?jql=project=\"PL\"",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"search"
+					],
+					"query": [
+						{
+							"key": "jql",
+							"value": "project=\"PL\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListAllIssueType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{table}}/issuetype",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"issuetype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateIssueJira",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    var res=pm.response.json();\r",
+							"    console.log(res.id);\r",
+							"    console.log(res.key);\r",
+							"var id = res.id;\r",
+							"var key=res.key;\r",
+							"pm.globals.set(\"issueid\",id);\r",
+							"pm.globals.set(\"pkey\",key);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"PL\"\r\n        },\r\n        \"summary\": \"create issue in PL project\",\r\n        \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Bug\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURI}}/{{table}}/issue/",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"issue",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListSpecificIssue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/rest/api/2/issue/{{issueid}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{issueid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchIssuekey",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{table}}/issue/{{pkey}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"issue",
+						"{{pkey}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\",function(){\r",
+							"pm.response.to.have.status(204);});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"description\": \"Editing of an issue using project keys names using the REST API on OCT via PUT\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURI}}/{{table}}/issue/{{pkey}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"issue",
+						"{{pkey}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteIssue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\",function(){\r",
+							"pm.response.to.have.status(204);});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{table}}/issue/{{pkey}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"issue",
+						"{{pkey}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "lVxcDj4hEwqjQjcip9BuD55C",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "ssneharenganathaan@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "table",
+			"value": "rest/api/2",
+			"type": "string"
+		}
+	]
+}

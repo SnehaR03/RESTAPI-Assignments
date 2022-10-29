@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "6aca7e70-3038-4204-9fb6-27d0dc93d219",
+		"name": "ServiceNowCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23889513"
+	},
+	"item": [
+		{
+			"name": "CreateTicket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\",function(){\r",
+							"pm.response.to.have.status(201);\r",
+							"//pm.expect(pm.response.text()).to.include(\"Zocca\");\r",
+							"//pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"//pm.response.to.have.status(400);\r",
+							"});\r",
+							"Resp = pm.response.json();\r",
+							"sysid=Resp.result.sys_id;\r",
+							"pm.globals.set(\"G_Sysid\",Resp.result.sys_id);\r",
+							"console.log(\"Sysid from POST \"+Resp.result.sys_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gl%7/qLZTh3F",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "tex",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"short_description\":\"Issue with Login\",\"description\":\"Application Server down\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/{{table}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"{{table}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetIncidentBySysID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",function(){\r",
+							"pm.response.to.have.status(200);\r",
+							"\r",
+							"//pm.expect(pm.response.text()).to.include(\"Zocca\");\r",
+							"//pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"//pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gl%7/qLZTh3F",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURI}}/{{table}}/{{G_Sysid}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"{{G_Sysid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ModifyAllPUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",function(){\r",
+							"pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gl%7/qLZTh3F",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"short_description\":\"Windows Issue Exists-Modified-PUT\",\"description\":\"Server Issue Exists-PUT\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/{{table}}/{{G_Sysid}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"{{G_Sysid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ModifyRecordPATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",function(){\r",
+							"pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gl%7/qLZTh3F",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"short_description\":\"Windows Issue Exists-Modified-PATCH\",\"description\":\"Server Issue Exists-PATCH\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/{{table}}/{{G_Sysid}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"{{G_Sysid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveIncident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\",function(){\r",
+							"pm.response.to.have.status(204);});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gl%7/qLZTh3F",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURI}}/{{table}}/{{G_Sysid}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"{{table}}",
+						"{{G_Sysid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "gl%7/qLZTh3F",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "table",
+			"value": "api/now/table/incident",
+			"type": "string"
+		}
+	]
+}
